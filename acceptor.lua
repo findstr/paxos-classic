@@ -15,8 +15,8 @@ socket.listen(port, function(fd, addr)
 		if not l then
 			return
 		end
-		local req, num, val = l:match("([^:]+):(%d+):(%d+)")
-		assert(req, num, val);
+		local req, num, val = l:match("([^:]+):(%d+):([^:]+)")
+		assert(req, l);
 		num = tonumber(num)
 		if req == "r_prepare" then
 			local ack

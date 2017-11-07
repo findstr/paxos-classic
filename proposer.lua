@@ -56,7 +56,7 @@ local function prepare()
 		local l = ret[i]
 		print("PREPARE server:", i, "recv:", l)
 		if l then
-			local ack, status, val = l:match("([^:]+):([^:]+):(%d+)")
+			local ack, status, val = l:match("([^:]+):([^:]+):([^:]+)")
 			assert(ack == "a_prepare", ack)
 			if status == "accept" then
 				accept_count = accept_count + 1
@@ -95,7 +95,7 @@ local function accept(val)
 		local l = ret[i]
 		print("ACCEPT server:", i, "recv:", l)
 		if l then
-			local ack, status, val = l:match("([^:]+):([^:]+):(%d+)")
+			local ack, status, val = l:match("([^:]+):([^:]+):([^:]+)")
 			assert(ack == "a_accept")
 			val = tonumber(val)
 			assert(val == num)
@@ -126,20 +126,24 @@ console {
 		set = function(val, sleep)
 			sleep = sleep or 0
 			print("set", val, sleep)
-			while true do
-				while true do
-					local ok = prepare()
+			local ok
+			for i = 1, 10 do
+				for i = 1, 10 do
+					ok = prepare()
 					if ok then
 						break
 					end
 				end
+				if not ok then
+					return "Fail"
+				end
 				core.sleep(sleep)
-				local ok = accept(val)
+				ok = accept(val)
 				if ok then
 					break
 				end
 			end
-			return "OK"
+			return ok and "OK" or "Fail"
 		end,
 	}
 }
