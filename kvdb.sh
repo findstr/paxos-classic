@@ -1,5 +1,5 @@
 #!/bin/bash
-MAIN="`pwd`/acceptor.lua"
+MAIN="`pwd`/paxos-kvdb.lua"
 echo $MAIN
 export bootstrap=$MAIN
 export serverid=$1
