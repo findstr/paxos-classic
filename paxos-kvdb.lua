@@ -1,7 +1,7 @@
-local core = require "std.core"
-local socket = require "std.socket"
-local console = require "std.console"
-local json = require "std.json"
+local core = require "sys.core"
+local socket = require "sys.socket"
+local console = require "sys.console"
+local json = require "sys.json"
 local format = string.format
 
 local serverid = tonumber(core.envget("serverid"))
